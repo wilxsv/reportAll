@@ -54,7 +54,8 @@ class ConsumoMensualController extends Controller
 		$sibasi = $request->get('sibasi');
 		$estab = $request->get('estab');
 		if ($region and $sibasi and $estab) {
-			$sql = "SELECT region.id,sibasi.id,estab.id FROM ctl_establecimiento AS estab JOIN ctl_establecimiento AS sibasi ON estab.id_establecimiento_padre = sibasi.id JOIN ctl_establecimiento AS region ON sibasi.id_establecimiento_padre = region.id WHERE region.id = ".$region." and sibasi.id = ".$sibasi." and estab.id = ".$estab;
+			$sql = "SELECT region.nombre,sibasi.nombre,estab.nombre FROM ctl_establecimiento AS estab JOIN ctl_establecimiento AS sibasi ON estab.id_establecimiento_padre = sibasi.id JOIN ctl_establecimiento AS region ON sibasi.id_establecimiento_padre = region.id
+ WHERE region.id = ".$region." and sibasi.id = ".$sibasi." and estab.id = ".$estab;
 			$rsm = new ResultSetMapping;
 			$rsm->addEntityResult('MinsalCoreBundle:CtlEstablecimiento', 'estab');
 			$rsm->addEntityResult('MinsalCoreBundle:CtlEstablecimiento', 'sibasi');
