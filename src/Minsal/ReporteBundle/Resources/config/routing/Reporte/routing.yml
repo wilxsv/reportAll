@@ -7,5 +7,5 @@ minsal_reporte_consumo_mensual:
     defaults: { _controller: MinsalCoreBundle:ConsumoMensual:crearFormulario }
 
 minsal_reporte_consumo_existencia:
-    path:     /consumomensual
+    path:     /consumoexistencia
     defaults: { _controller: MinsalCoreBundle:ConsumoMensual:formularioExistencia }
