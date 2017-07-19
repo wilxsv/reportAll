@@ -49,19 +49,40 @@ class ConsumoMensualController extends Controller
 	}
 	public function ajaxconsumomensualAction(Request $request)
 	{
+		$em = $this->getDoctrine()->getManager();
 		$region = $request->get('region');
 		$sibasi = $request->get('sibasi');
 		$estab = $request->get('estab');
-		$rsm = new ResultSetMapping();
+		if ($region and $sibasi and $estab) {
+			$sql = "SELECT region.id,sibasi.id,estab.id FROM ctl_establecimiento AS estab JOIN ctl_establecimiento AS sibasi ON estab.id_establecimiento_padre = sibasi.id JOIN ctl_establecimiento AS region ON sibasi.id_establecimiento_padre = region.id WHERE region.id = ".$region." and sibasi.id = ".$sibasi." and estab.id = ".$estab;
+			$rsm = new ResultSetMapping;
+			$rsm->addEntityResult('MinsalCoreBundle:CtlEstablecimiento', 'estab');
+			$rsm->addEntityResult('MinsalCoreBundle:CtlEstablecimiento', 'sibasi');
+			$rsm->addEntityResult('MinsalCoreBundle:CtlEstablecimiento', 'region');
+			$rsm->addFieldResult('region','id','id');
+			$rsm->addFieldResult('sibasi','id','id');
+			$rsm->addFieldResult('estab','id','id');
 
+			$nq = $this->getDoctrine()->getManager()->createNativeQuery($sql, $rsm);
+			$ctlEstablecimientos = $nq->getArrayResult();
+			$encoders = array(new XmlEncoder(), new JsonEncoder());
+			$normalizers = array(new ObjectNormalizer());
+
+			$serializer = new Serializer($normalizers, $encoders);
+			$jsonContent = $serializer->serialize($ctlEstablecimientos, 'json');
+			return new Response($jsonContent);
+		}
+
+
+
+
+		/*$region = $request->get('region');
+		$sibasi = $request->get('sibasi');
+		$estab = $request->get('estab');
+		$rsm = new ResultSetMapping();
 		$em = $this->getDoctrine()->getManager();
-		$query = $em->createNativeQuery('SELECT region.id,sibasi.id,estab.id
-			FROM ctl_establecimiento AS estab
-			JOIN ctl_establecimiento AS sibasi
-			ON estab.id_establecimiento_padre = sibasi.id
-			JOIN ctl_establecimiento AS region
-			ON sibasi.id_establecimiento_padre = region.id
-			WHERE region.id = ? and sibasi.id = ? and estab.id = ?',$rsm);
+		
+		$query = $em->createNativeQuery('SELECT region.id,sibasi.id,estab.id FROM ctl_establecimiento AS estab JOIN ctl_establecimiento AS sibasi ON estab.id_establecimiento_padre = sibasi.id JOIN ctl_establecimiento AS region ON sibasi.id_establecimiento_padre = region.id WHERE region.id = ? and sibasi.id = ? and estab.id = ?',$rsm);
 		$query->setParameter(1,$region);
 		$query->setParameter(2,$sibasi);
 		$query->setParameter(3,$estab);
@@ -72,7 +93,7 @@ class ConsumoMensualController extends Controller
 
 		$serializer = new Serializer($normalizers, $encoders);
 		$jsonContent = $serializer->serialize($resultado, 'json');
-		return new Response($jsonContent);
+		return new Response($jsonContent);*/
 
 	}
 }
