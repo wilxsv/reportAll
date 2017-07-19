@@ -4,6 +4,9 @@ namespace Minsal\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class ConsumoMensualController extends Controller
 {
@@ -36,5 +39,12 @@ class ConsumoMensualController extends Controller
 		return $this->render('MinsalPlantillaBundle:Reporte:reporteConsumoMensual.html.twig',array(
 			'sibasis' => $sibasis, 'regiones' => $regiones, 'establecimientos' => $establecimientos
 			));
+	}
+	public function ajaxconsumomensualAction(Request $request)
+	{
+		$region = $request->get('region');
+		$sibasi = $request->get('sibasi');
+		$estab = $request->get('estab');
+		
 	}
 }

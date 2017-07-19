@@ -9,3 +9,9 @@ minsal_reporte_consumo_mensual:
 minsal_reporte_consumo_existencia:
     path:     /consumoexistencia
     defaults: { _controller: MinsalCoreBundle:ReporteExistencia:formularioExistencia }
+
+
+minsal_reporte_grafico_consumo_mensual:
+    path:     /consumomensualajax
+    defaults: { _controller: MinsalCoreBundle:ConsumoMensual:ajaxconsumomensual }
+    methods:  POST

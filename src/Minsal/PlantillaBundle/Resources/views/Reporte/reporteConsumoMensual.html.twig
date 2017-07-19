@@ -15,11 +15,11 @@
                         <form>
                         	<div class="form-group">
                         		<label>Region:</label>
-                        		<select>
-								  <option id="region0">[ Todas las regiones ]</option>
+                        		<select id="region">
+								  <option value="0">[ Todas las regiones ]</option>
 								  {# aqui va el for de regiones #}
 								  {% for region in regiones %}
-								  	<option id="region{{ region.id }}">{{ region.nombre }}</option>
+								  	<option value="{{ region.id }}">{{ region.nombre }}</option>
 								  {% endfor %}
 
 								</select>
@@ -27,22 +27,22 @@
                         	</div>
                             <div class="form-group">
                         		<label>SIBASI</label>
-                        		<select>
-								  <option id="sibasi0">[ Todas las SIBASIS ]</option>
+                        		<select  id="sibasi">
+								  <option value="0">[ Todas las SIBASIS ]</option>
 								  {# aqui va el for de SIBASIS #}
 								  {% for sibasi in sibasis %}
-								  	<option id="sibasi{{ sibasi.id }}">{{ sibasi.nombre }}</option>
+								  	<option value="{{ sibasi.id }}">{{ sibasi.nombre }}</option>
 								  {% endfor %}
 								 </select>
 
                         	</div>
                             <div class="form-group">
                         		<label>Establecimientos</label>
-                        		<select>
+                        		<select id="establecimiento">
 								  {# aqui va el for de Establecimientos #}
-								  <option id="estab0">[ Todos los Establecimientos ]</option>
+								  <option value="0">[ Todos los Establecimientos ]</option>
 								  {% for establecimiento in establecimientos %}
-								  	<option id="establecimiento{{ establecimiento.id }}">{{ establecimiento.nombre }}</option>
+								  	<option value="{{ establecimiento.id }}">{{ establecimiento.nombre }}</option>
 								  {% endfor %}
 								</select>
 
@@ -115,7 +115,27 @@
     <script src="{{ asset('assets/') }}plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="{{ asset('assets/') }}highcharts/highcharts.src.js"></script>
     <script src="{{ asset('assets/') }}highcharts/drilldown.js"></script>
-
+    <script type="text/javascript">
+    $('#generador').click(function() {
+    	var region = $('#region').val();
+    	var sibasi = $('#sibasi').val();
+    	var estab = $('#establecimiento').val();
+    	
+    	$.ajax({
+	        url: '{{ path('minsal_reporte_grafico_consumo_mensual') }}',
+	        data: {
+	            'region':region,
+	            'sibasi':sibasi,
+	            'estab':estab
+	        },
+	        type: 'POST',
+	    }).done(function(data) {
+	        alert(data);
+	    }).fail(function() {
+	    	alert('puta la cagastes');
+	    });
+    });
+    </script>
 
 
 {% endblock %}
