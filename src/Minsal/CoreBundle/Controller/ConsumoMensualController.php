@@ -6,6 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+
+
 
 
 class ConsumoMensualController extends Controller
@@ -45,6 +52,27 @@ class ConsumoMensualController extends Controller
 		$region = $request->get('region');
 		$sibasi = $request->get('sibasi');
 		$estab = $request->get('estab');
-		
+		$rsm = new ResultSetMapping();
+
+		$em = $this->getDoctrine()->getManager();
+		$query = $em->createNativeQuery('SELECT region.id,sibasi.id,estab.id
+			FROM ctl_establecimiento AS estab
+			JOIN ctl_establecimiento AS sibasi
+			ON estab.id_establecimiento_padre = sibasi.id
+			JOIN ctl_establecimiento AS region
+			ON sibasi.id_establecimiento_padre = region.id
+			WHERE region.id = ? and sibasi.id = ? and estab.id = ?',$rsm);
+		$query->setParameter(1,$region);
+		$query->setParameter(2,$sibasi);
+		$query->setParameter(3,$estab);
+		$resultado = $query->getResult();
+
+		$encoders = array(new XmlEncoder(), new JsonEncoder());
+		$normalizers = array(new ObjectNormalizer());
+
+		$serializer = new Serializer($normalizers, $encoders);
+		$jsonContent = $serializer->serialize($resultado, 'json');
+		return new Response($jsonContent);
+
 	}
 }
