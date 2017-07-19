@@ -1,0 +1,55 @@
+<?php
+
+namespace Minsal\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Auditoria
+ *
+ * @ORM\Table(name="auditoria")
+ * @ORM\Entity
+ */
+class Auditoria
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="auditoria_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tipo_operacion", type="integer", nullable=false)
+     */
+    private $tipoOperacion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tabla_operacion", type="text", nullable=false)
+     */
+    private $tablaOperacion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="indice_operacion", type="bigint", nullable=false)
+     */
+    private $indiceOperacion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="userid", type="bigint", nullable=false)
+     */
+    private $userid;
+
+
+}
+

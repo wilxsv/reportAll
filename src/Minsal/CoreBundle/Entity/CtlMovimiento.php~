@@ -1,0 +1,88 @@
+<?php
+
+namespace Minsal\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CtlMovimiento
+ *
+ * @ORM\Table(name="ctl_movimiento", indexes={@ORM\Index(name="IDX_B621B5407B62918", columns={"ctl_establecimientoid"}), @ORM\Index(name="IDX_B621B540D05C792B", columns={"ctl_insumoid"}), @ORM\Index(name="IDX_B621B5403CEA1C61", columns={"ctl_tipo_movimientoid"}), @ORM\Index(name="IDX_B621B540B264D8", columns={"establecimiento_origen_id"})})
+ * @ORM\Entity
+ */
+class CtlMovimiento
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_movimiento_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_movimiento", type="datetime", nullable=false)
+     */
+    private $fechaMovimiento;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="cantidad", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $cantidad;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_registro_movimiento", type="datetime", nullable=false)
+     */
+    private $fechaRegistroMovimiento;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ctl_establecimientoid", referencedColumnName="id")
+     * })
+     */
+    private $ctlEstablecimientoid;
+
+    /**
+     * @var \CtlInsumo
+     *
+     * @ORM\ManyToOne(targetEntity="CtlInsumo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ctl_insumoid", referencedColumnName="id")
+     * })
+     */
+    private $ctlInsumoid;
+
+    /**
+     * @var \CtlTipoMovimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlTipoMovimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ctl_tipo_movimientoid", referencedColumnName="id")
+     * })
+     */
+    private $ctlTipoMovimientoid;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_origen_id", referencedColumnName="id")
+     * })
+     */
+    private $establecimientoOrigen;
+
+
+}
+

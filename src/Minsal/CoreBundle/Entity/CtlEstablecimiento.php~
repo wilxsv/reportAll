@@ -1,0 +1,156 @@
+<?php
+
+namespace Minsal\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CtlEstablecimiento
+ *
+ * @ORM\Table(name="ctl_establecimiento", indexes={@ORM\Index(name="idx_332bd42c7ead49c7", columns={"id_municipio"}), @ORM\Index(name="IDX_332BD42C4E0E50FD", columns={"id_tipo_establecimiento"}), @ORM\Index(name="IDX_332BD42C3544B551", columns={"id_establecimiento_padre"})})
+ * @ORM\Entity
+ */
+class CtlEstablecimiento
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_establecimiento_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=150, nullable=true)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="direccion", type="string", length=300, nullable=true)
+     */
+    private $direccion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefono", type="string", length=15, nullable=true)
+     */
+    private $telefono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fax", type="string", length=15, nullable=true)
+     */
+    private $fax;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="latitud", type="decimal", precision=13, scale=8, nullable=true)
+     */
+    private $latitud;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="longitud", type="decimal", precision=13, scale=8, nullable=true)
+     */
+    private $longitud;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_institucion", type="integer", nullable=true)
+     */
+    private $idInstitucion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="anio_apertura", type="integer", nullable=true)
+     */
+    private $anioApertura;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_cat_nivel_minsal", type="integer", nullable=true)
+     */
+    private $idCatNivelMinsal;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="registro_schema", type="datetime", nullable=true)
+     */
+    private $registroSchema;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="enable_schema", type="integer", nullable=true)
+     */
+    private $enableSchema = '0';
+
+    /**
+     * @var \CtlTipoEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlTipoEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_tipo_establecimiento", referencedColumnName="id")
+     * })
+     */
+    private $idTipoEstablecimiento;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_establecimiento_padre", referencedColumnName="id")
+     * })
+     */
+    private $idEstablecimientoPadre;
+
+    /**
+     * @var \CtlMunicipio
+     *
+     * @ORM\ManyToOne(targetEntity="CtlMunicipio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_municipio", referencedColumnName="id")
+     * })
+     */
+    private $idMunicipio;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="CtlInsumo", mappedBy="ctlEstablecimientoid")
+     */
+    private $ctlInsumoid;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="CtlInsumo", mappedBy="establecimiento")
+     */
+    private $insumo;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ctlInsumoid = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->insumo = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

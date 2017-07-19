@@ -1,0 +1,103 @@
+<?php
+
+namespace Minsal\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CtlExistencias
+ *
+ * @ORM\Table(name="ctl_existencias", indexes={@ORM\Index(name="IDX_69499BED05C792B", columns={"ctl_insumoid"}), @ORM\Index(name="IDX_69499BE7B62918", columns={"ctl_establecimientoid"})})
+ * @ORM\Entity
+ */
+class CtlExistencias
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_existencias_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_registro", type="datetime", nullable=false)
+     */
+    private $fechaRegistro;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="cantidad_existencia", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $cantidadExistencia;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_caducidad", type="date", nullable=true)
+     */
+    private $fechaCaducidad;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="lote_existencia", type="bigint", nullable=true)
+     */
+    private $loteExistencia;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_existencia", type="date", nullable=false)
+     */
+    private $fechaExistencia;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="almacen_farmacia", type="boolean", nullable=false)
+     */
+    private $almacenFarmacia;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id_schema", type="bigint", nullable=false)
+     */
+    private $userIdSchema = '(1)::bigint';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ip_user_schema", type="string", nullable=false)
+     */
+    private $ipUserSchema = '::1';
+
+    /**
+     * @var \CtlInsumo
+     *
+     * @ORM\ManyToOne(targetEntity="CtlInsumo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ctl_insumoid", referencedColumnName="id")
+     * })
+     */
+    private $ctlInsumoid;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ctl_establecimientoid", referencedColumnName="id")
+     * })
+     */
+    private $ctlEstablecimientoid;
+
+
+}
+

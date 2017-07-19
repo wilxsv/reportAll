@@ -1,0 +1,110 @@
+<?php
+
+namespace Minsal\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CtlGrupo
+ *
+ * @ORM\Table(name="ctl_grupo", indexes={@ORM\Index(name="IDX_501FC6D89C833003", columns={"grupo_id"}), @ORM\Index(name="IDX_501FC6D86D7078B6", columns={"suministro_id"})})
+ * @ORM\Entity
+ */
+class CtlGrupo
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_grupo_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_grupo", type="string", length=255, nullable=false)
+     */
+    private $nombreGrupo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="detalle_grupo", type="text", nullable=true)
+     */
+    private $detalleGrupo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="registro_schema", type="datetime", nullable=true)
+     */
+    private $registroSchema = '(now())::timestamp(0) without time zone';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="detalle_schema", type="text", nullable=true)
+     */
+    private $detalleSchema = 'Agregado antes de gestor de maestros';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id_schema", type="bigint", nullable=true)
+     */
+    private $userIdSchema = '(1)::bigint';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ip_user_schema", type="string", nullable=true)
+     */
+    private $ipUserSchema = '0.0.0.0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="estado_schema", type="integer", nullable=true)
+     */
+    private $estadoSchema = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="enable_schema", type="integer", nullable=true)
+     */
+    private $enableSchema = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="codigo_grupo", type="bigint", nullable=true)
+     */
+    private $codigoGrupo = '0';
+
+    /**
+     * @var \CtlGrupo
+     *
+     * @ORM\ManyToOne(targetEntity="CtlGrupo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="grupo_id", referencedColumnName="id")
+     * })
+     */
+    private $grupo;
+
+    /**
+     * @var \CtlSuministro
+     *
+     * @ORM\ManyToOne(targetEntity="CtlSuministro")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="suministro_id", referencedColumnName="id")
+     * })
+     */
+    private $suministro;
+
+
+}
+

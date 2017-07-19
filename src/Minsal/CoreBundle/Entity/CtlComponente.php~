@@ -1,0 +1,66 @@
+<?php
+
+namespace Minsal\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CtlComponente
+ *
+ * @ORM\Table(name="ctl_componente", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_componente_nombre_componente_key", columns={"nombre_componente"})}, indexes={@ORM\Index(name="FKI_componente_rol", columns={"role_registra_componente"})})
+ * @ORM\Entity
+ */
+class CtlComponente
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_componente_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_componente", type="string", length=255, nullable=false)
+     */
+    private $nombreComponente;
+
+    /**
+     * @var \CtlRol
+     *
+     * @ORM\ManyToOne(targetEntity="CtlRol")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="role_registra_componente", referencedColumnName="id")
+     * })
+     */
+    private $roleRegistraComponente;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="CtlInsumo", inversedBy="componente")
+     * @ORM\JoinTable(name="componente_insumo",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="componente_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="insumo_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $insumo;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->insumo = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

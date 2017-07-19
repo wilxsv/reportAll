@@ -1,0 +1,58 @@
+<?php
+
+namespace Minsal\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CtlSuministro
+ *
+ * @ORM\Table(name="ctl_suministro", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_suministro_nombre_suministro_key", columns={"nombre_suministro"})}, indexes={@ORM\Index(name="FKI_suministro_registra", columns={"role_registra"})})
+ * @ORM\Entity
+ */
+class CtlSuministro
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_suministro_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_suministro", type="string", length=255, nullable=false)
+     */
+    private $nombreSuministro;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="registro_schema", type="datetime", nullable=true)
+     */
+    private $registroSchema = '2017-02-26 21:29:15.600166';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="enable_schema", type="integer", nullable=true)
+     */
+    private $enableSchema = '0';
+
+    /**
+     * @var \CtlRol
+     *
+     * @ORM\ManyToOne(targetEntity="CtlRol")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="role_registra", referencedColumnName="id")
+     * })
+     */
+    private $roleRegistra;
+
+
+}
+

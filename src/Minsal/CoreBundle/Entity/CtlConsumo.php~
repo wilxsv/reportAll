@@ -1,0 +1,82 @@
+<?php
+
+namespace Minsal\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CtlConsumo
+ *
+ * @ORM\Table(name="ctl_consumo", indexes={@ORM\Index(name="fki_fkctl_consumo_existencia", columns={"ctl_existencia"}), @ORM\Index(name="IDX_285219DC46F39AED", columns={"ctl_mecanismoid"})})
+ * @ORM\Entity
+ */
+class CtlConsumo
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_consumo_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_consumo", type="datetime", nullable=false)
+     */
+    private $fechaConsumo;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="cantidad_consumo", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $cantidadConsumo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="registro_schema", type="datetime", nullable=false)
+     */
+    private $registroSchema;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id_schema", type="bigint", nullable=false)
+     */
+    private $userIdSchema;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ip_user_schema", type="string", nullable=false)
+     */
+    private $ipUserSchema = '::1';
+
+    /**
+     * @var \CtlExistencias
+     *
+     * @ORM\ManyToOne(targetEntity="CtlExistencias")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ctl_existencia", referencedColumnName="id")
+     * })
+     */
+    private $ctlExistencia;
+
+    /**
+     * @var \CtlMecanismo
+     *
+     * @ORM\ManyToOne(targetEntity="CtlMecanismo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ctl_mecanismoid", referencedColumnName="id")
+     * })
+     */
+    private $ctlMecanismoid;
+
+
+}
+
