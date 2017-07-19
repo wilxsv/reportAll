@@ -18,9 +18,7 @@
                         		<select>
 								  <option>[ Todas las regiones ]</option>
 								  {# aqui va el for de regiones #}
-								  {% for region in regiones %}
-								  	<option id="{{ region.id }}">{{ region.nombre }}</option>
-								  {% endfor %}
+
 								</select>
 
                         	</div>
@@ -29,6 +27,9 @@
                         		<select>
 								  <option>[ Todas las SIBASIS ]</option>
 								  {# aqui va el for de SIBASIS #}
+								  {% for sibasi in sibasis %}
+								  	<option id="{{ region.id }}">{{ sibasi.nombre }}</option>
+								  {% endfor %}
 								 </select>
 
                         	</div>

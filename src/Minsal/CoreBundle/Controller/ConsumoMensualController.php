@@ -15,9 +15,9 @@ class ConsumoMensualController extends Controller
 		->where('e.nombre LIKE :sibasi')
 		->setParameter('sibasi','%Sibasi%')
 		->getQuery();
-		$regiones =  $query->getResult();
+		$sibasis =  $query->getResult();
 		return $this->render('MinsalPlantillaBundle:Reporte:reporteConsumoMensual.html.twig',array(
-			'regiones' => $regiones
+			'sibasis' => $sibasis
 			));
 	}
 }
