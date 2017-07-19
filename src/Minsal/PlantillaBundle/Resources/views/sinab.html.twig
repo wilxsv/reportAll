@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include 'MinsalPlantillaBundle::Maestro/cabecera.html.twig' %}
+{% block css %}
+    {% include 'MinsalPlantillaBundle::Maestro/cabecera.html.twig' %}
+{% endblock %}
 <body class="fix-header">
     <!-- ============================================================== -->
     <!-- Preloader -->
@@ -51,7 +53,9 @@
         <!-- End Page Content -->
         <!-- ============================================================== -->
     </div>
-    {% include 'MinsalPlantillaBundle::Maestro/scripts.html.twig' %}
+    {% block js %}
+        {% include 'MinsalPlantillaBundle::Maestro/scripts.html.twig' %}
+    {% endblock %}
     
 </body>
 

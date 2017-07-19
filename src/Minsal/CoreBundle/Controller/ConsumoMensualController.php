@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ConsumoMensualController extends Controller
 {
-	public function FormularioConsumoMensualAction()
+	public function formularioConsumoMensualAction()
 	{
 		return $this->render('MinsalPlantillaBundle:Reporte:reporteConsumoMensual.html.twig');
 	}
