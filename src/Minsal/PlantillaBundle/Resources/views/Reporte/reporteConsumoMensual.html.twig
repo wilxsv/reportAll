@@ -28,7 +28,7 @@
                             <div class="form-group">
                         		<label>SIBASI</label>
                         		<select>
-								  <option id="0">[ Todas las SIBASIS ]</option>
+								  <option id="sibasi0">[ Todas las SIBASIS ]</option>
 								  {# aqui va el for de SIBASIS #}
 								  {% for sibasi in sibasis %}
 								  	<option id="sibasi{{ sibasi.id }}">{{ sibasi.nombre }}</option>
@@ -40,7 +40,10 @@
                         		<label>Establecimientos</label>
                         		<select>
 								  {# aqui va el for de Establecimientos #}
-								  <option value="volvo">Establecimientos</option>
+								  <option id="estab0">[ Todos los Establecimientos ]</option>
+								  {% for establecimiento in establecimientos %}
+								  	<option id="establecimiento{{ establecimiento.id }}">{{ establecimiento.nombre }}</option>
+								  {% endfor %}
 								</select>
 
                         	</div>

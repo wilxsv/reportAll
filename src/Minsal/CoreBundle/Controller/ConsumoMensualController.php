@@ -24,10 +24,17 @@ class ConsumoMensualController extends Controller
 		->getQuery();
 		$regiones =  $query->getResult();
 
+		$query = $establecimientoReposistorio->createQueryBuilder('es')
+		->select('es.id, es.nombre')
+		->where('es.nombre NOT LIKE :region AND es.nombre NOT LIKE :sibasi' )
+		->setParameter('region','%Región%')
+		->setParameter('sibasi','%Sibasi%')
+		->getQuery();
+		$establecimientos =  $query->getResult();	
 
 
 		return $this->render('MinsalPlantillaBundle:Reporte:reporteConsumoMensual.html.twig',array(
-			'sibasis' => $sibasis, 'regiones' => $regiones
+			'sibasis' => $sibasis, 'regiones' => $regiones, 'establecimientos' => $establecimientos
 			));
 	}
 }
