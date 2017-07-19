@@ -1,6 +1,6 @@
 minsal_core_trndistribucion:
-    resource: "@MinsalCoreBundle/Resources/config/routing/trndistribucion.yml"
-    prefix:   /trndistribucion
+    resource: "@MinsalCoreBundle/Resources/config/routing/Reporte/routing.yml"
+    prefix:   /reportes
 
 minsal_core_homepage:
     path:     /
