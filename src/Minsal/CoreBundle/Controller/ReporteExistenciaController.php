@@ -9,6 +9,10 @@ class ReporteExistenciaController extends Controller
 {
 	public function formularioExistenciaAction()
 	{
-		return $this->render('MinsalPlantillaBundle:Reporte:reporteExistencia.html.twig');
+		$em = $this->getDoctrine()->getManager();
+		$medicamentos = $em->getRepository('MinsalCoreBundle:CtlInsumo')->findAll();
+		return $this->render('MinsalPlantillaBundle:Reporte:reporteExistencia.html.twig', array(
+			'medicamentos'=>$medicamentos
+			));
 	}
 }
