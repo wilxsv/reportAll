@@ -8,4 +8,4 @@ minsal_reporte_consumo_mensual:
 
 minsal_reporte_consumo_existencia:
     path:     /consumoexistencia
-    defaults: { _controller: MinsalCoreBundle:ConsumoMensual:formularioExistencia }
+    defaults: { _controller: MinsalCoreBundle:ConsumoExistencia:formularioExistencia }
